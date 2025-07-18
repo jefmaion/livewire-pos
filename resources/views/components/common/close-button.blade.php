@@ -1,0 +1,1 @@
+<a href="#" class="text-muted" data-dismiss="modal">Fechar</a>
