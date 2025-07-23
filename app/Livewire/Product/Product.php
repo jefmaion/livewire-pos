@@ -29,7 +29,7 @@ class Product extends Component
     public function edit($id) {
         $this->isEdit = true;
         $product      = ModelsProduct::find($id);
-        
+
         $this->form->populate($product);
         $this->dispatch('open-modal');
     }
@@ -43,7 +43,7 @@ class Product extends Component
         'type' => 'success',
         'message' => 'Produto salvo com sucesso!'
     ]);
-        
+
     }
 
     public function render()

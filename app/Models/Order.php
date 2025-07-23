@@ -14,4 +14,8 @@ class Order extends Model
     public function items() {
         return $this->hasMany(OrderItems::class);
     }
+
+    public function orderCode() {
+        return sprintf('%03d', $this->id);
+    }
 }

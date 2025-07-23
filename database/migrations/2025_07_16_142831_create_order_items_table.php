@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->decimal('value');
             $table->string('description')->nullable();
-            $table->integer('takeout')->default(0)->nullable();
+            $table->integer('to_go')->default(0)->nullable();
         });
     }
 

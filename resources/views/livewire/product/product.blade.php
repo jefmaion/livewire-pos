@@ -9,9 +9,12 @@
     </div>
 
     <div class="card">
-        <div class="card-body">
+        <div class="card-header">
             <x-form.input-search class="mb-2" />
-            <x-common.table class="text-lg mb-2">
+        </div>
+        <div class="card-body">
+
+            <x-common.table class=" mb-2">
                 <thead class="thead-light">
                     <tr>
                         <th width="50%"><a href="#" class="text-muted">Produto</a></th>
@@ -31,7 +34,7 @@
                         <td class="text-center">{{ $product->quantity }}</td>
                         <td class="text-center">
                             @if($product->enabled)
-                            <span class="badge badge-pill badge-success">Sim</span>
+                            <span class="badge badge-pill bg-{{color()}}">Sim</span>
                             @else
                             <span class="badge badge-pill badge-secondary">Não</span>
                             @endif
@@ -50,7 +53,7 @@
         </div>
     </div>
 
-    <x-common.modal id="modal-product" class="modal-lg">
+    <x-common.modal id="modal-product" class="mosdal-lg">
         <form wire:submit="save">
             <div class="modal-content">
                 <div class="modal-header">

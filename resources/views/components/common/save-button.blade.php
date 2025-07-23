@@ -1,4 +1,4 @@
-<button {{ $attributes->merge(['class' => 'btn btn-success btn-lg']) }}>
-    <i class="fa fa-check-circle" aria-hidden="true"></i>
+<button {{ $attributes->merge(['class' => 'btn  btn-lg bg-'.color()]) }}>
+    <x-icons.plus />
     {{ $slot }}
 </button>

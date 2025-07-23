@@ -1,10 +1,12 @@
 @props(['product'])
-<div class="d-flex align-items-center text-lg">
 
-       <img src="{{ asset('template/dist/img/user2-160x160.jpg') }}" width="60px" class="rounded mr-2">
-    
+<div class="d-flex align-items-center texts-lg">
+
+       <x-common.product-image width="60px" />
+
     <div>
-        <div class="p-0 text-lg">{{ $product->name }}</div>
-        <div class="m-0 p-0"><strong>R$ {{ usToBrl($product->value) }}</strong></div>
+        <div class="p-0 texst-lg"><strong>{{ $product->name }}</strong></div>
+        <div class="m-0 p-0">R$ {{ usToBrl($product->value) }}</div>
+
     </div>
 </div>

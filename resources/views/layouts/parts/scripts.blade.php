@@ -31,12 +31,14 @@
             const toggleButton = document.getElementById("toggleDarkMode");
             const body = document.body;
             const header = document.getElementById("main-header");
+            const sidebar = document.querySelector("aside.main-sidebar");
 
             // Verifica se o modo escuro está ativado no Local Storage
             if (localStorage.getItem("darkMode") === "enabled") {
                 body.classList.add("dark-mode");
                 header.classList.remove("navbar-light")
                 header.classList.add("navbar-dark")
+                replaceSidebarTheme(sidebar, 'sidebar-light', 'sidebar-dark');
             }
 
             toggleButton.addEventListener("click", function() {
@@ -44,14 +46,28 @@
                 header.classList.toggle("navbar-dark");
                 header.classList.toggle("navbar-light");
 
+
                 // Salva a escolha do usuário no Local Storage
                 if (body.classList.contains("dark-mode")) {
                     localStorage.setItem("darkMode", "enabled");
+                    replaceSidebarTheme(sidebar, 'sidebar-light', 'sidebar-dark');
                 } else {
                     localStorage.setItem("darkMode", "disabled");
+                    replaceSidebarTheme(sidebar, 'sidebar-dark', 'sidebar-light');
+
                 }
             });
         });
+
+        function replaceSidebarTheme(element, fromPrefix, toPrefix) {
+            const classes = Array.from(element.classList);
+            classes.forEach(cls => {
+                if (cls.startsWith(fromPrefix)) {
+                    element.classList.remove(cls);
+                    element.classList.add(cls.replace(fromPrefix, toPrefix));
+                }
+            });
+        }
     </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

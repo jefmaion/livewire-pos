@@ -9,6 +9,9 @@ function brlToUs($float) {
     return str_replace(",", ".", str_replace('.', "", $float));
 }
 
+function color() {
+    return 'purple';
+}
 
 
 function categoryData() {

@@ -8,7 +8,7 @@ use Livewire\Form;
 
 class ProductForm extends Form
 {
-    
+
     public Product $product;
 
     #[Validate('required|exists:categories,id')]
@@ -27,6 +27,8 @@ class ProductForm extends Form
     public $image;
 
     public $enabled;
+    public $min;
+    public $sell_no_stock;
     public $description;
 
 
@@ -39,6 +41,8 @@ class ProductForm extends Form
         $this->category_id = $product->category_id;
         $this->description = $product->description;
         $this->image = 'image';
+        $this->min = $product->min;
+        $this->sell_no_stock = ($product->sell_no_stock == 1);
     }
 
     public function save()
@@ -46,14 +50,14 @@ class ProductForm extends Form
         $this->validate();
         $data = $this->prepare();
 
-        dd($data);
+        // dd($data);
 
         if(isset($this->product)) {
             return $this->update($data);
         }
 
         return Product::create($data);
-        
+
     }
 
     public function update($data) {

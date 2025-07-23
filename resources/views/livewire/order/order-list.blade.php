@@ -1,7 +1,7 @@
 <div>
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="font-weight-light">Pedidos</h1>
+            <h1 class="font-weight-light"><x-icons.order /> Pedidos</h1>
         </div>
         <div class="col-sm-6 text-right"></div>
     </div>
@@ -13,26 +13,30 @@
             <table class="table table-striped mb-2">
                 <thead class="thead-light">
                     <tr>
-                        <th width="5%"><a href="#" class="text-muted" wire:click="sort('name')">Nº Pedido</a></th>
-                        <th width="10%" class="stext-center"><a href="#" class="text-muted" wire:click="sort('value')">Cliente</a></th>
-                        <th width="10%" class="tsext-center"><a href="#" class="text-muted" wire:click="sort('quantity')">Mesa</a></th>
-                        <th width="10%" class="tsext-center"><a href="#" class="text-muted" wire:click="sort('value')">Valor</a></th>
-                        <th width="10%" class="tsext-center"><a href="#" class="text-muted" wire:click="sort('value')">Valor</a></th>
-                        <th width="10%" class="tsext-center"><a href="#" class="text-muted" wire:click="sort('status')">Status</a></th>
+                        <th><a href="#" class="text-muted" wire:click="sort('name')">Nº Pedido</a></th>
+                        <th class="stext-center"><a href="#" class="text-muted" wire:click="sort('value')">Mesa</a></th>
+                        <th class="tsext-center"><a href="#" class="text-muted" wire:click="sort('value')">Valor</a></th>
+                        <th class="tsext-center"><a href="#" class="text-muted" wire:click="sort('value')">Forma</a></th>
+                        <th class="tsext-center"><a href="#" class="text-muted" wire:click="sort('status')">Status</a></th>
+                        <th class="tsext-center"><a href="#" class="text-muted" wire:click="sort('status')">Data</a></th>
+                        <th class="tsext-center"><a href="#" class="text-muted" wire:click="sort('status')">Cliente</a></th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($orders as $order)
                         <tr wire:key="{{ $order->id }}">
-                            <td scope="row">{{ $order->id  }}</td>
-                            <td>{{ $order->customer }}</td>
+                            <td scope="row">{{ $order->orderCode()  }}</td>
                             <td>{{ $order->table }}</td>
                             <td>R$ {{ usToBrl($order->value) }}</td>
                             <td>{{ $order->payment }}</td>
                             <td>{{ $order->status }}</td>
+                            <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
+                            <td>{{ $order->customer }}</td>
                             <td>
                                 <a href="#" wire:click='showItems({{ $order->id }})'>Ver Itens</a>
+                                <a href="#" wire:click='print({{ $order->id }})'>Imprimir</a>
+                                <a href="#" wire:click='showStatus({{ $order->id }})'>Status</a>
                             </td>
                         </tr>
                     @endforeach
@@ -40,6 +44,27 @@
             </table>
             <div class="card-body">
                 {{ $orders->links() }}
+            </div>
+        </div>
+    </div>
+
+       <!-- Modal -->
+    <div class="modal fade" wire:ignore.self id="modal-status" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <x-form.input wire:model="status" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" wire:click="saveStatus()">Save</button>
+                </div>
             </div>
         </div>
     </div>
@@ -93,6 +118,10 @@
                                         @if(!empty($item->description))
                                         <div>*{{ $item->description }}</div>
                                         @endif
+
+                                         @if(!empty($item->to_go))
+                                        <div>*VIAGEM</div>
+                                        @endif
                                     </td>
                                     <td class="text-right">R$ {{ usToBrl($item->value * $item->quantity) }}</td>
                                 </tr>
@@ -119,12 +148,14 @@
                     </div>
                     <div class="modal-footer">
                         <a href="#" data-dismiss="modal">Fechar</a>
-                        {{-- <button type="submit" class="btn btn-success"> <i class="fa fa-check-circle" aria-hidden="true"></i> Salvar</button> --}}
+                        <button type="submit" class="btn btn-success" wire:click='print({{ $selectedOrder->id ?? '' }})'> <i class="fa fa-check-circle" aria-hidden="true"></i> Imprimir</button>
                     </div>
 
                 </div>
         </div>
     </div>
+
+
 </div>
 <script>
     window.addEventListener('open-modal', () => {
@@ -132,5 +163,12 @@
     });
     window.addEventListener('close-modal', () => {
         $('#modal-details').modal('hide');
+    });
+
+    window.addEventListener('show-status', () => {
+        $('#modal-status').modal('show');
+    });
+    window.addEventListener('close-status', () => {
+        $('#modal-status').modal('hide');
     });
 </script>

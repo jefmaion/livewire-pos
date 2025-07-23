@@ -1,4 +1,4 @@
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-light-{{color()}} elevation-2">
             <!-- Brand Logo -->
             {{-- <a href="{{ asset('template/index3.html') }}" class="brand-link">
                 <img src="{{ asset('img/logo.png') }}" alt="AdminLTE Logo"
@@ -60,7 +60,7 @@
                             </ul>
                         </li> --}}
                         <li class="nav-item">
-                            <a href="{{ route('product') }}" class="nav-link">
+                            <a href="{{ route('product') }}" class="nav-link {{ request()->routeIs('product') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Produtos
@@ -70,8 +70,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('pos') }}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+                            <a href="{{ route('pos') }}" class="nav-link {{ request()->routeIs('pos') ? 'active' : '' }}">
+                                <x-icons.pos class="nav-icon" />
                                 <p>
                                     Ponto de Venda
                                     {{-- <span class="right badge badge-danger">New</span> --}}
@@ -80,8 +80,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('order.list') }}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+                            <a href="{{ route('order.list') }}" class="nav-link {{ request()->routeIs('order.list') ? 'active' : '' }}">
+                                <x-icons.order class="nav-icon" />
                                 <p>
                                     Pedidos
                                     {{-- <span class="right badge badge-danger">New</span> --}}

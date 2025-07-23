@@ -69,6 +69,9 @@
   --avatar-size: 2.5rem;
   /* #1f2937 */
 }
+.cursor-pointer {
+    cursor: pointer !important;
+}
 .outline {
   text-decoration: line-through;
   color:999
@@ -10709,7 +10712,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .dark-mode :root {
-  
+
   --red: #e74c3c;
   --yellow: #f39c12;
   --green: #00bc8c;
@@ -32928,7 +32931,7 @@ html.maximized-card {
   color: #533f03;
 }
 
-.alert-danger { 
+.alert-danger {
   --alert-bg: var(--red);
 }
 

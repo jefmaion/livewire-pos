@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('name', 200)->nullable();
             $table->string('description', 1000)->nullable();
             $table->decimal('value', 10,2)->nullable();
+            $table->integer('min')->nullable();
             $table->integer('quantity')->nullable();
             $table->integer('enabled')->default(1);
+            $table->integer('sell_no_stock')->default(0);
         });
     }
 

@@ -11,6 +11,13 @@ class OrderItems extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    protected static function booted()
+    {
+        static::created(function ($orderItem) {
+            Product::where('id', $orderItem->product_id)->decrement('quantity', $orderItem->quantity);
+        });
+    }
+
     public function product() {
         return $this->belongsTo(Product::class);
     }
