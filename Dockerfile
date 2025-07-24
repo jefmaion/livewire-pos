@@ -1,30 +1,25 @@
-FROM php:8.2-fpm
+FROM php:8.2-cli
 
-# Instala dependências do sistema
+# Instala dependências
 RUN apt-get update && apt-get install -y \
     git unzip curl libpq-dev libzip-dev zip libpng-dev libonig-dev libxml2-dev libicu-dev \
     && docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl intl
 
-# Instala o Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Instala Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Define diretório de trabalho
+# Define o diretório
 WORKDIR /var/www/html
 
-# Copia os arquivos do projeto
+# Copia o projeto
 COPY . .
 
-# Cria o .env para o build
-RUN cp .env.example .env
-
-# Instala dependências PHP (sem dev)
+# Instala as dependências sem pacotes de desenvolvimento
 RUN composer install --no-dev --optimize-autoloader
 
-# Gera APP_KEY se ainda não existir
-RUN php artisan config:clear && php artisan key:generate
-
-# Ajusta permissões
+# Permissões corretas
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Servidor embutido
-CMD php artisan serve --host=0.0.0.0 --port=8080
+# Porta e comando
+EXPOSE 8080
+CMD php artisan config:clear && php artisan key:generate && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8080
