@@ -8,7 +8,7 @@
             @endif
 
             @if (!empty($order->table))
-                <div class="text-sm"><span>Mesa {{ $order->table }}</span></div>
+                <div class="text-sm"><span><strong>Mesa: </strong> {{ $order->table }}</span></div>
             @endif
 
         </div>

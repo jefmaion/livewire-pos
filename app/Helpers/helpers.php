@@ -10,7 +10,7 @@ function brlToUs($float) {
 }
 
 function color() {
-    return 'purple';
+    return 'brown';
 }
 
 

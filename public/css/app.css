@@ -31,6 +31,7 @@
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
+  --brown: #5e3603;
   --light: #f8f9fa;
 
   --primary: var(--blue);
@@ -49,8 +50,6 @@
   --font-family-sans-serif: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  /* --dark-mode-bg-color: #032830; */
-  /* --dark-mode-bg-color: #0f172a; */
   --dark-mode-bg-color: #0f172a;
    --dark-mode-bg-surface: #1e293b;
   --dark-mode-border-color:#334155;
@@ -69,6 +68,27 @@
   --avatar-size: 2.5rem;
   /* #1f2937 */
 }
+
+.bg-brown {
+  background-color: var(--brown) !important;
+}
+
+.bg-brown,
+.bg-brown > a {
+  color: var(--white) !important;
+}
+
+.text-brown {
+  color: var(--brown) !important;
+}
+
+.sidebar-dark-brown .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-light-brown .nav-sidebar > .nav-item > .nav-link.active {
+  background-color: var(--brown);
+  color: var(--white);
+}
+
+
 .cursor-pointer {
     cursor: pointer !important;
 }

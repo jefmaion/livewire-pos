@@ -13,7 +13,7 @@ class ModalAlert extends Component
 
     #[On('modal-alert')]
     public function show($params=[]) {
-        dd('aop');
+
         $this->message = $params['message'];
         $this->type = $params['type'];
 

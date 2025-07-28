@@ -3,7 +3,9 @@
         <div class="col-sm-6">
             <h1 class="font-weight-light"><x-icons.order /> Pedidos</h1>
         </div>
-        <div class="col-sm-6 text-right"></div>
+        <div class="col-sm-6 text-right">
+            <a href="{{ route('display') }}" target="_blank">Abrir Display</a>
+        </div>
     </div>
     <div class="card">
         <div class="card-header">
@@ -30,7 +32,7 @@
                             <td>{{ $order->table }}</td>
                             <td>R$ {{ usToBrl($order->value) }}</td>
                             <td>{{ $order->payment }}</td>
-                            <td>{{ $order->status }}</td>
+                            <td>{{ $order->status->name }}</td>
                             <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
                             <td>{{ $order->customer }}</td>
                             <td>
@@ -59,11 +61,14 @@
                         </button>
                 </div>
                 <div class="modal-body">
-                    <x-form.input wire:model="status" />
+                    @foreach($statuses as $status)
+                    <p>
+                        <a href="#" wire:click="saveStatus({{ $status->id }})">{{ $status->name }}</a>
+                    </p>
+                    @endforeach
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" wire:click="saveStatus()">Save</button>
                 </div>
             </div>
         </div>

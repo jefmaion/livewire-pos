@@ -1,22 +1,18 @@
 <div>
     <div class="row" wire:poll.3s>
         {{-- product list --}}
-        <div class="col-md-6">
+        <div class="col-md-6 vh-100">
             <div class="card">
                 <div class="card-header">
                     <strong>Em preparação</strong>
                 </div>
-                <div class="card-body">
-
-                    <div class="row">
-                        @foreach ($preparing as $order)
-                            <div class="col-3 d-flex">
-                                <x-display.display-card-order :order="$order" status="" />
-                            </div>
-                        @endforeach
+            </div>
+            <div class="row">
+                @foreach ($preparing as $order)
+                    <div class="col-12 d-flex">
+                        <x-display.display-card-order :order="$order" status="" />
                     </div>
-
-                </div>
+                @endforeach
             </div>
         </div>
 
@@ -26,21 +22,15 @@
                 <div class="card-header">
                     <strong>Retirar</strong>
                 </div>
-                <div class="card-body">
-                    <div class="row">
+            </div>
+
+            <div class="row">
                         @foreach ($done as $order)
-                            <div class="col-3 d-flex">
-                                {{-- <div class="card">
-                                <div class="card-body h1 text-center text-success">
-                                    <strong>{{ $order->orderCode() }}</strong>
-                                </div>
-                            </div> --}}
+                            <div class="col-12 d-flex">
                                 <x-display.display-card-order :order="$order" status="success" />
                             </div>
                         @endforeach
                     </div>
-                </div>
-            </div>
         </div>
     </div>
 

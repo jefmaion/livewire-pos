@@ -58,7 +58,6 @@
     @include('layouts.parts.scripts')
     <script>
         window.addEventListener('show-modal-alert', () => {
-            alert('aop');
             $('#modal-alert').modal('show');
         });
 

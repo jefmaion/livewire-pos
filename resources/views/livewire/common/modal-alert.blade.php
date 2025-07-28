@@ -1,11 +1,8 @@
 <div>
-
-    <div class="modal fade" wire:ignore.self id="modal-alert" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-
+    <div class="modal" wire:ignore.self id="modal-alert" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             @if(!empty($message))
             <div class="modal-content card-outline card-{{ $type ?? 'success' }}">
-
                 <div class="modal-body text-center pp-4 text-lg">
                     <div class="p-4">
                         @if($type == 'warning')
@@ -36,7 +33,5 @@
             </div>
             @endif
         </div>
-
     </div>
-
 </div>

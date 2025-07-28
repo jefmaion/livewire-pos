@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Common;
 
+use App\Models\Payment;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -14,9 +15,7 @@ class SelectPayment extends Component
      */
     public function __construct()
     {
-        $this->payments = [
-            'Pix', 'Cartão Crédito', 'Cartão Débito', 'Dinheiro', 'Outros'
-        ];
+        $this->payments = Payment::all();
     }
 
     /**

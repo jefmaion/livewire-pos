@@ -2,19 +2,13 @@
 
 namespace App\Livewire\Pos;
 
-use App\Livewire\Actions\PrintOrder;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Traits\Alerts;
-use Exception;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Layout;
-
-use Livewire\Attributes\On;
-use Mike42\Escpos\Printer;
-use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 class PosMain extends Component
 {
@@ -36,6 +30,9 @@ class PosMain extends Component
     public $table;
     public $customer;
     public $payment;
+    public $receive=0;
+    public $change=0;
+    
 
     public function grids($type) {
         $this->grid = $type;
@@ -45,6 +42,20 @@ class PosMain extends Component
     public function category($id='') {
         $this->categoryId = $id;
         $this->resetPage();
+    }
+
+    public function setChange() {
+        $receive  = (float) brlToUs($this->receive);
+
+        if(empty($receive) || $receive == 0) {
+            return;
+        }
+
+ 
+
+        $this->change = $receive - $this->total;
+
+        // dd($this->receive, $this->total);
     }
 
     public function show(Product $product) {
@@ -77,8 +88,6 @@ class PosMain extends Component
             return;
 
         }
-
-        // dd('aop');
 
         $itemQtd = $this->items[$product]['quantity'];
         $itemQtd = $itemQtd + $n;
@@ -118,6 +127,7 @@ class PosMain extends Component
         } else {
             $this->items[$id] = [
                 'product'    => $product,
+                'name' => $product->name,
                 'product_id' => $id,
                 'quantity'   => $this->quantity,
                 'description'   => $this->comments,
@@ -129,8 +139,6 @@ class PosMain extends Component
 
 
         $this->setTotal();
-
-
         $this->dispatch('close-modal', modal:'modal-product');
         $this->search="";
 
@@ -142,9 +150,7 @@ class PosMain extends Component
         $this->total = 0;
     }
 
-    public function resume() {
-        $this->dispatch('open-modal', modal:'modal-resume');
-    }
+
 
     public function order() {
 
@@ -172,29 +178,32 @@ class PosMain extends Component
             'table'    => $this->table,
             'customer' => $this->customer,
             'value'    => $this->total,
-            'payment'  => $this->payment,
-            'status' => 'EM PREPARAÇÃO'
+            'payments_id'  => $this->payment,
+            'status_id' => 1
         ]);
 
          foreach ($this->items as $item) {
             unset($item['product']);
             $order->items()->create($item);
         }
+
+
+
         $this->reset();
         $this->resetPage();
-        $this->dispatch('close-modal');
+        $this->dispatch('close-modal', modal:'modal-resume');
         $this->alert('Pedido Criado');
-        PrintOrder::run($order);
+
+        // PrintOrder::run($order);
     }
 
     // #[Layout('components.layouts.navbar')]
     public function render()
     {
-
-
         return view('livewire.pos.pos-main', [
             'products' => $this->getData(),
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'payments' => Payment::all()
         ]);
     }
 
@@ -213,7 +222,7 @@ class PosMain extends Component
         $pages = 5;
 
         if($this->grid == 'I') {
-            $pages = 12;
+            $pages = 8;
         }
 
         return $products->paginate($pages);
