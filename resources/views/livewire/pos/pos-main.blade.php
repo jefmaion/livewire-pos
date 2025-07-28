@@ -97,8 +97,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button type="button" wire:click="resume"
-                            class="btn bg-{{ color() }} btn-block btn-lg">Pedido</button>
+                    <button type="button" wire:click="resume" class="btn bg-{{ color() }} btn-block btn-lg">Pedido</button>
                 </div>
             </div>
         </div>
