@@ -142,6 +142,10 @@ class PosMain extends Component
         $this->total = 0;
     }
 
+    public function resume() {
+        $this->dispatch('open-modal', modal:'modal-resume');
+    }
+
     public function order() {
 
         if(empty($this->items)) {

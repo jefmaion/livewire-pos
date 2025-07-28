@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button type="button" wire:click="order"
+                    <button type="button" wire:click="resume"
                             class="btn bg-{{ color() }} btn-block btn-lg">Pedido</button>
                 </div>
             </div>
@@ -138,6 +138,24 @@
                     <x-common.close-button />
                     <x-common.save-button clsass="btn-block" wire:click="add({{ $product->id ?? null }})"> Adicionar ao
                         Carrinho
+                    </x-common.save-button>
+
+                </div>
+            </div>
+        @endif
+    </x-common.modal>
+
+    <x-common.modal id="modal-resume">
+        @if ($items)
+            <div class="modal-content">
+                <div class="modal-body pt-4">
+
+                    Opa
+                </div>
+                <div class="modal-footer bg-transparent border-0 d-flex justify-content-between">
+
+                    <x-common.close-button />
+                    <x-common.save-button clsass="btn-block"> Realizar Pedido
                     </x-common.save-button>
 
                 </div>

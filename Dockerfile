@@ -32,11 +32,17 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Expõe porta e define o comando de inicialização
 EXPOSE 8080
-CMD php artisan config:clear && \
-    php artisan key:generate && \
-    php artisan migrate --force && \
-    #php artisan db:seed --force && \
-    php artisan serve --host=0.0.0.0 --port=8080
+# CMD php artisan config:clear && \
+#     php artisan key:generate && \
+#     php artisan migrate --force && \
+#     #php artisan db:seed --force && \
+#     php artisan serve --host=0.0.0.0 --port=8080
+RUN php artisan config:clear
+RUN php artisan key:generate
+RUN php artisan migrate --force
+RUN php artisan bd:seed --force
+RUN php artisan serve --host=0.0.0.0 --port=8080
+
 
 
 
