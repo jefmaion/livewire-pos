@@ -38,9 +38,13 @@ EXPOSE 8080
 #     #php artisan db:seed --force && \
 #     php artisan serve --host=0.0.0.0 --port=8080
 RUN php artisan config:clear
+
 RUN php artisan key:generate
+
 RUN php artisan migrate --force
+
 RUN php artisan bd:seed --force
+
 RUN php artisan serve --host=0.0.0.0 --port=8080
 
 
