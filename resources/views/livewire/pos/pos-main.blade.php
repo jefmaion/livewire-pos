@@ -149,11 +149,11 @@
 
 @section('scripts')
     <script>
-        window.addEventListener('open-modal', () => {
-            $('#modal-product').modal('show');
+        window.addEventListener('open-modal', (e) => {
+            $('#' + e.detail.modal).modal('show');
         });
-        window.addEventListener('close-modal', () => {
-            $('#modal-product').modal('hide');
+        window.addEventListener('close-modal', (e) => {
+            $('#' + e.detail.modal).modal('hide');
         });
     </script>
 @endsection

@@ -53,7 +53,7 @@ class PosMain extends Component
         $this->comments=null;
 
         $this->product = $product;
-        $this->dispatch('open-modal');
+        $this->dispatch('open-modal', modal:'modal-product');
     }
 
     public function setPayment($payment) {
@@ -131,7 +131,7 @@ class PosMain extends Component
         $this->setTotal();
 
 
-        $this->dispatch('close-modal');
+        $this->dispatch('close-modal', modal:'modal-product');
         $this->search="";
 
 
